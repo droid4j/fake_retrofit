@@ -37,7 +37,7 @@ public class RetrofitActivity extends AppCompatActivity {
 //                if (response.body().errorCode == 0) {
 //                    Log.e("TAG", response.body().data.toString());
 //                }
-                Log.e("TAG", "onResponse");
+                Log.e("TAG", "onResponse: " + response.body);
 
             }
 
