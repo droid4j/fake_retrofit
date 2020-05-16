@@ -18,7 +18,7 @@ public class Retrofit {
 
     private final Map<Method, ServiceMethod> serviceMethodMapCache = new ConcurrentHashMap<>();
 
-    private final String baseUrl;
+    final String baseUrl;
     public Retrofit(Builder builder) {
         this.baseUrl = builder.baseUrl;
     }
