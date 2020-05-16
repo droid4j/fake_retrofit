@@ -28,10 +28,10 @@ public class RetrofitActivity extends AppCompatActivity {
                 .build();
 
         // 2. 调用 create 创建 接口类
-        ServiceApi serviceApi = retrofit.create(ServiceApi.class);
+        RetrofitServiceApi serviceApi = retrofit.create(RetrofitServiceApi.class);
 
         // 3. 执行方法，并异步处理
-        serviceApi.searchArticle2("Java").enqueue(new Callback<BaseResult<JsonObject>>() {
+        serviceApi.searchArticle("Java").enqueue(new Callback<BaseResult<JsonObject>>() {
             @Override
             public void onResponse(Call<BaseResult<JsonObject>> call, Response<BaseResult<JsonObject>> response) {
 //                if (response.body().errorCode == 0) {
