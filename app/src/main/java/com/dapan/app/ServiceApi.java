@@ -18,6 +18,9 @@ public interface ServiceApi {
     @GET("wxarticle/list/405/1/json")
     public Call<BaseResult<JsonObject>> searchArticle(@Query("k") String key);
 
+    @GET("wxarticle/list/405/1/json")
+    public com.dapan.retrofit.Call<BaseResult<JsonObject>> searchArticle2(@Query("k") String key);
+
     @POST("user/login")
     @FormUrlEncoded
     public Call<BaseResult<String>> login(@Field("username") String userName, @Field("password") String password);
