@@ -19,8 +19,10 @@ public class Retrofit {
     private final Map<Method, ServiceMethod> serviceMethodMapCache = new ConcurrentHashMap<>();
 
     final String baseUrl;
+    final okhttp3.Call.Factory callFactory;
     public Retrofit(Builder builder) {
         this.baseUrl = builder.baseUrl;
+        this.callFactory = builder.callFactory;
     }
 
     @SuppressWarnings("unchecked")

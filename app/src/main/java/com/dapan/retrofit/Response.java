@@ -5,4 +5,5 @@ package com.dapan.retrofit;
  * on 2020/5/16
  */
 public class Response<T> {
+    public T body;
 }

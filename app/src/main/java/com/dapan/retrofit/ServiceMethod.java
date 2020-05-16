@@ -1,7 +1,11 @@
 package com.dapan.retrofit;
 
+import com.google.gson.Gson;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 
 import okhttp3.Request;
 
@@ -16,7 +20,9 @@ public class ServiceMethod {
     final String httpMethod;
     final String relativeUrl;
     final ParameterHandler[] parameterHandlers;
+    final okhttp3.Call.Factory callFactory;
     public ServiceMethod(Builder builder) {
+        this.callFactory = builder.retrofit.callFactory;
         this.retrofit = builder.retrofit;
         this.method = builder.method;
         this.httpMethod = builder.httpMethod;
@@ -34,6 +40,22 @@ public class ServiceMethod {
         }
 
         return requestBuilder.build();
+    }
+
+    public <T> T parseResponse(okhttp3.Response rawResponse) {
+        Type type = method.getGenericReturnType();
+        Gson gson = new Gson();
+        type = (((ParameterizedType) type).getActualTypeArguments())[0];
+        Class<T> dataClass = null;
+        if (type instanceof Class) {
+            dataClass = (Class<T>) type;
+        } else if (type instanceof ParameterizedType) {
+            dataClass = (Class<T>)((ParameterizedType) type).getActualTypeArguments()[0];
+        }
+        if (dataClass != null) {
+            return gson.fromJson(rawResponse.body().charStream(), dataClass);
+        }
+        return null;
     }
 
     public static class Builder {
